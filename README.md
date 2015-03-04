@@ -11,8 +11,11 @@ irrelevant to the codebase.
 ###Dependencies
 
 Python 2.7
+
 Matlab
+
 Arcmap 10.1/10.2
+
 This is a conglomeration of code writen in Python 2.7 and Matlab.
 No cross language calls are made. Python code is executed sequentially to perform geospatial
 data manipulations using the arcpy toolbox (comes with ESRI ArcMap), then saved outputs are
