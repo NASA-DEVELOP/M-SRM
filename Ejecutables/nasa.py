@@ -19,15 +19,15 @@ def Prepare_MODIS(Package,Year):
         os.makedirs(readymodis)
 
     # Extract all the HDFs in the specified year for the given basin.
-    hdf_list=List_Files(False,rawmodis,['.hdf'],['.xml','.ovr','.aux'],False) 
+    hdf_list = List_Files(False,rawmodis,['.hdf'],['.xml','.ovr','.aux'],False) 
     Extract_MODIS_HDF(hdf_list,[3],['Fractional_Snow_Cover'],rawmodis,False)
 
     # Mosaic all possible MODIS tiles together.  
-    mosaic_list=List_Files(False,rawmodis,['.tif','Fractional_Snow_Cover'],['.xml','.ovr','.aux'],False)
+    mosaic_list = List_Files(False,rawmodis,['.tif','Fractional_Snow_Cover'],['.xml','.ovr','.aux'],False)
     Mosaic_MODIS(mosaic_list, '8_BIT_UNSIGNED', '1', 'LAST','FIRST',readymodis,False)
 
     # reprojects all files to the desired projection.
-    project_list=List_Files(False,readymodis,['mosaic','.tif'],['.xml','.ovr','.aux'],False)
+    project_list = List_Files(False,readymodis,['mosaic','.tif'],['.xml','.ovr','.aux'],False)
     Project_Filelist(project_list,reference_file,readymodis,False,False,Quiet=False)
     
     return
@@ -61,7 +61,7 @@ def Process_MODIS(Package,Basin,Year):
     for filename in Tiffs:
         print 'Process_MODIS: Clipping and resampling ' + filename
 
-        path,name=os.path.split(filename)
+        path, name = os.path.split(filename)
         
         clip_tif      = Dir + '/temp/clipped.tif'
         resampled_tif = Dir + '/RS_' + name[:-4] + '.tif'
@@ -788,15 +788,15 @@ def Project_Filelist(filelist,reference_file,outdir=False,resampling_type=False,
 
     # sanitize inputs and create directories
     Exists(reference_file)
-    filelist=Enforce_List(filelist)
+    filelist = Enforce_List(filelist)
     if not os.path.isdir(outdir):
         os.makedirs(outdir)
 
     # grab data about the spatial reference of the reference file. (prj or otherwise)
     if reference_file[-3:]=='prj':
-        Spatial_Reference=arcpy.SpatialReference(Spatial_Reference)
+        Spatial_Reference = arcpy.SpatialReference(Spatial_Reference)
     else:
-        Spatial_Reference=arcpy.Describe(reference_file).spatialReference
+        Spatial_Reference  =arcpy.Describe(reference_file).spatialReference
         
     # determine wether coordinate system is projected or geographic and print info
     if Spatial_Reference.type=='Projected':
